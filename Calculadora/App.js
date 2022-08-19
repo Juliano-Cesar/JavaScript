@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-//import { handleInput, calculator } from './components/Functions.js';
 
 export default function App() {
   const [currentNumber, setCurrentNumber] = useState('');
@@ -28,13 +27,16 @@ export default function App() {
       const lastNumber = parseFloat(splitNumbers[2]);
       const operator = splitNumbers[1];
 
-      if(operator === "/" && lastNumber == "0") {
+      if (operator === "/" && lastNumber == "0") {
         setCurrentNumber("Não é possível dividir por 0.");
+        return;
+      } else if (operator == "%") {
+        setCurrentNumber(firstNumber / 100);
         return;
       }
 
       setCurrentNumber(eval((firstNumber + operator + lastNumber).toString()));
-    } catch(x) {
+    } catch (x) {
       console.log('Deu erro na função calculator....');
       let temp = [];
       temp.push(x);
@@ -75,7 +77,6 @@ export default function App() {
   };
   let operacoesFunc = {
     'DEL': (...x) => {
-      //setCurrentNumber(currentNumber.substring(0, currentNumber.lenght - 1));
       try {
         setCurrentNumber(currentNumber.substring(0, currentNumber.lenght - 1));
       } catch {
